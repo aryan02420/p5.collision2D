@@ -76,7 +76,7 @@ c2d.collidingPointPoint(p1: collisionPoint, p2: collisionPoint, margin: float) -
 ###### Shorthand
 
 ```ts
-c2d.collidingPointPoint(o1: any, o2: any, margin: float) -> boolean
+c2d.colliding(o1: any, o2: any, margin: float) -> boolean
 // will find the type of collision
 // and call the appropriate method
 ```

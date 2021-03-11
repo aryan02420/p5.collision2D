@@ -1,0 +1,20 @@
+{
+  "name": "p5.collision2d",
+  "version": "0.0.1",
+  "description": "rewrite of [p5.collide2D](https://github.com/bmoren/p5.collide2D)",
+  "main": "p5.collision2D.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://aryan02420@github.com/aryan02420/p5.collision2D.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aryan02420/p5.collision2D/issues"
+  },
+  "homepage": "https://github.com/aryan02420/p5.collision2D#readme",
+  "devDependencies": {}
+}
