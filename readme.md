@@ -8,7 +8,7 @@ rewrite of [p5.collide2D](https://github.com/bmoren/p5.collide2D)
 
  - :green_circle:   point
  - :red_circle:     line
- - :yellow_circle:  box
+ - :green_circle:  box
  - :red_circle:     circle
  - :red_circle:     ellipse
  - :red_circle:     arc
@@ -21,15 +21,15 @@ rewrite of [p5.collide2D](https://github.com/bmoren/p5.collide2D)
 
 |               | point         | line          | box           | circle        | ellipse       | arc           | polygon       | triangle      | capsule       |
 | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
-| point         |:green_circle: |:red_circle:   |:yellow_circle:|:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
+| point         |:green_circle: |:red_circle:   |:green_circle:|:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
 | line          |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
-| box           |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
+| box           |:green_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
 | circle        |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
 | ellipse       |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
 | arc           |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
 | polygon       |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
 | triangle      |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
-| capsule       |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |)
+| capsule       |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
 
 ____
 
@@ -45,21 +45,30 @@ let c2d = new Collision2D()
 ###### Point
 
 ```ts
-let point1 = c2d.collisionPoint(x: float, y: float)
-let point2 = c2d.collisionPoint(position: p5.Vector)
+let point1 = new c2d.collisionPoint(x: float, y: float)
+let point2 = new c2d.collisionPoint(position: p5.Vector)
+
+// properties
+collisionPoint.pos: p5.Vector
 ```
 
 ###### Box
 
 ```ts
-let box1 = c2d.collisionBox(x1: float, y1: float, x2: float, y2: float)
-let box2 = c2d.collisionBox(position1: p5.Vector, position2: p5.Vector)
+let box1 = new c2d.collisionBox(x1: float, y1: float, x2: float, y2: float)
+let box2 = new c2d.collisionBox(position1: p5.Vector, position2: p5.Vector)
+
+// properties
+collisionBox.center: p5.Vector
+collisionBox.width: number
+collisionBox.height: number
+collisionBox.size: p5.Vector
 ```
 
 ###### Shorthand
 
 ```ts
-let obj = c2d.collisionPrimitive(type: string, [...args])
+let obj = new c2d.collisionPrimitive(type: string, [...args])
 // where type is one of 
 // POINT, BOX
 // args will be passed to the correct constructor

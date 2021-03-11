@@ -24,13 +24,14 @@ function Collision2D(p) {
         this.position = vec
         return
       }
-      throw 'collosionPoint.pos accepts only p5.Vector'
+      throw 'collisionPoint.pos accepts only p5.Vector'
     }
     draw = function() {
       THIS.sketch.circle(this.position.x, this.position.y, 2)
       THIS.sketch.circle(this.position.x, this.position.y, 5)
     }
   }
+  
   this.collisionBox = class {
     type = 'BOX'
     constructor(...args) {
@@ -54,6 +55,9 @@ function Collision2D(p) {
     get height() {
       return THIS.sketch.abs(this.from.y - this.to.y)
     }
+    get size() {
+      return THIS.sketch.createVector(this.width, this.height)
+    }
     set center(vec) {
       if (vec instanceof p5.Vector) {
         let currentpos = this.center
@@ -62,10 +66,23 @@ function Collision2D(p) {
         this.to.add(displacement)
         return
       }
-      throw ' collosionPoint.pos accepts only p5.Vector'
+      throw 'collisionBox.center accepts only p5.Vector'
     }
     set width(w) {
-
+      this.from = THIS.sketch.createVector(this.center.x - w/2, this.from.y)
+      this.to = THIS.sketch.createVector(this.center.x + w/2, this.to.y)
+    }
+    set height(h) {
+      this.from = THIS.sketch.createVector(this.from.x, this.center.y - h/2)
+      this.to = THIS.sketch.createVector(this.to.x , this.center.y + h/2)
+    }
+    set size(vec) {
+      if (vec instanceof p5.Vector) {
+        this.width = vec.x
+        this.height = vec.y
+        return
+      }
+      throw 'collisionBox.size accepts only p5.Vector'
     }
     draw = function() {
       THIS.sketch.rectMode(CORNERS);
@@ -89,8 +106,11 @@ function Collision2D(p) {
     return (point1.position.dist(point2.position) <= margin)
   }
   
-  this.collidingPointBox = function(point1, point2, margin) {
-    return false
+  this.collidingPointBox = function(point, box, margin) {
+    return (point.position.x >= box.from.x &&
+      point.position.x <= box.to.x &&
+      point.position.y >= box.from.y &&
+      point.position.y <= box.to.y)
   }
 
   this.colliding = function(obj1, obj2, margin) {
@@ -102,6 +122,8 @@ function Collision2D(p) {
         return THIS.collidingPointLine(obj1, obj2, margin)
       case 'POINTBOX':
         return THIS.collidingPointBox(obj1, obj2, margin)
+      case 'BOXPOINT':
+        return THIS.collidingPointBox(obj2, obj1, margin)
       default:
         throw 'unknown collision type'
   
@@ -119,3 +141,5 @@ function Collision2D(p) {
     THIS.sketch.pop()
   }
 }
+
+
