@@ -1,7 +1,6 @@
 # p5.collision2D
 
-rewrite of [p5.collide2D](https://github.com/bmoren/p5.collide2D)
-this project is a work in progress, the api is always changing
+rewrite of [p5.collide2D](https://github.com/bmoren/p5.collide2D) <br/> this project is a work in progress, the api is always changing
 
 -----
 
@@ -10,7 +9,7 @@ this project is a work in progress, the api is always changing
  - :green_circle:   point
  - :red_circle:     line
  - :green_circle:   box
- - :red_circle:     circle
+ - :yellow_circle:  circle
  - :red_circle:     ellipse
  - :red_circle:     arc
  - :red_circle:     polygon
@@ -22,10 +21,10 @@ this project is a work in progress, the api is always changing
 
 |               | point         | line          | box           | circle        | ellipse       | arc           | polygon       | triangle      | capsule       |
 | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
-| point         |:green_circle: |:red_circle:   |:green_circle: |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
+| point         |:green_circle: |:red_circle:   |:green_circle: |:green_circle: |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
 | line          |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
-| box           |:green_circle: |:red_circle:   |:green_circle: |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
-| circle        |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
+| box           |:green_circle: |:red_circle:   |:green_circle: |:yellow_circle:|:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
+| circle        |:green_circle: |:red_circle:   |:yellow_circle:|:green_circle: |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
 | ellipse       |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
 | arc           |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
 | polygon       |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
@@ -69,13 +68,7 @@ collisionBox.height: number
 collisionBox.cx: number
 collisionBox.cy: number
 ```
-
-##### Checking Collisions
-
-```
-c2d.colliding(obj1: any, obj2: any, [margin: float]): boolean
-```
-
+BOX
 ##### Drawing Hitboxes
 
 ```
