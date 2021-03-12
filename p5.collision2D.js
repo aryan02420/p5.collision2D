@@ -46,7 +46,7 @@ function Collision2D(p) {
 
   this.drawCollisionOverlays = function(){
     THIS.sketch.push()
-    THIS.sketch.blendMode(DIFFERENCE)
+    THIS.sketch.blendMode(THIS.sketch.DIFFERENCE)
     THIS.sketch.noFill()
     THIS.sketch.stroke(100)
     for (const obj of THIS.objects) {
@@ -180,7 +180,7 @@ Collision2D.prototype._collisionBox = class {
   }
 
   draw = function() {
-    this.parent.sketch.rectMode(CENTER);
+    this.parent.sketch.rectMode(this.parent.sketch.CENTER);
     this.parent.sketch.rect(this.center.x, this.center.y, this.size.x, this.size.y)
   }
 
@@ -235,7 +235,7 @@ Collision2D.prototype._collisionCircle = class {
   }
 
   draw = function() {
-    this.parent.sketch.ellipseMode(RADIUS);
+    this.parent.sketch.ellipseMode(this.parent.sketch.RADIUS);
     this.parent.sketch.ellipse(this.center.x, this.center.y, this.radius, this.radius)
   }
 

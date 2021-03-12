@@ -45,8 +45,8 @@ let c2d = new Collision2D()
 ###### Point
 
 ```
-let point1 = c2d.collisionPoint('POINT', x: number, y: number)
-let point2 = c2d.collisionPoint('POINT', position: p5.Vector)
+let point1 = c2d.collisionPrimitive('POINT', x: number, y: number)
+let point2 = c2d.collisionPrimitive('POINT', position: p5.Vector)
 
 // properties
 collisionPoint.pos: p5.Vector
@@ -57,8 +57,8 @@ collisionPoint.y: number
 ###### Box
 
 ```
-let box1 = c2d.collisionBox('BOX', x1: number, y1: number, x2: number, y2: number)
-let box2 = c2d.collisionBox('BOX', position1: p5.Vector, position2: p5.Vector)
+let box1 = c2d.collisionPrimitive('BOX', cx: number, cy: number, w: number, h: number)
+let box2 = c2d.collisionPrimitive('BOX', center: p5.Vector, size: p5.Vector)
 
 // properties
 collisionBox.center: p5.Vector
@@ -72,8 +72,8 @@ collisionBox.cy: number
 ###### Circle
 
 ```
-let circle1 = c2d.collisionBox('CIRCLE', x: number, y: number, r: number)
-let circle2 = c2d.collisionBox('CIRCLE', center: p5.Vector, radius: number)
+let circle1 = c2d.collisionPrimitive('CIRCLE', x: number, y: number, r: number)
+let circle2 = c2d.collisionPrimitive('CIRCLE', center: p5.Vector, radius: number)
 
 // properties
 collisionCircle.center: p5.Vector
@@ -92,4 +92,25 @@ c2d.colliding(obj1: any, obj2: any, [margin: float]): boolean
 
 ```
 c2d.drawCollisionOverlays(): void
+```
+
+#### Usage in p5 Instance Mode
+
+```js
+let sketch = function(p) {
+  let c2d = new Collision2D(p)
+  let box1
+
+  p.setup = function() {
+    p.createCanvas(200, 200)
+    box1 = c2d.collisionPrimitive('BOX', 100,150,100,50)
+  }
+
+  p.draw = function() {
+    p.background(200)
+    c2d.drawCollisionOverlays()
+  }
+}
+
+let myp5 = new p5(sketch)
 ```
