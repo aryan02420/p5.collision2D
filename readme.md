@@ -57,7 +57,7 @@ collisionPoint.y: number
 ###### Box
 
 ```
-let box1 = c2d.collisionBox('BOX', x1: float, y1: float, x2: float, y2: float)
+let box1 = c2d.collisionBox('BOX', x1: number, y1: number, x2: number, y2: number)
 let box2 = c2d.collisionBox('BOX', position1: p5.Vector, position2: p5.Vector)
 
 // properties
@@ -68,9 +68,28 @@ collisionBox.height: number
 collisionBox.cx: number
 collisionBox.cy: number
 ```
-BOX
+
+###### Circle
+
+```
+let circle1 = c2d.collisionBox('CIRCLE', x: number, y: number, r: number)
+let circle2 = c2d.collisionBox('CIRCLE', center: p5.Vector, radius: number)
+
+// properties
+collisionCircle.center: p5.Vector
+collisionCircle.radius: number
+collisionCircle.cx: number
+collisionCircle.cy: number
+```
+
+##### Checking Collisions
+
+```
+c2d.colliding(obj1: any, obj2: any, [margin: float]): boolean
+```
+
 ##### Drawing Hitboxes
 
 ```
-c2d.drawCollisionOverlays()
+c2d.drawCollisionOverlays(): void
 ```
