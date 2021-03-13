@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>p5.collision2D</title>
+</head>
+
+<body>
+  <div id="canvas-element"></div>
+  <p>scroll to change object</p>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.0/p5.min.js"></script>
+  <script src="p5.collision2D.js"></script>
+  <script >
+
+      let sketch = function(p) {
+        let c2d = new Collision2D(p)
+        let point1, box1, circle1
+        let point2, box2, circle2
+        let follower;
+        let shape = 0;
+
+        p.mouseWheel = function(event) {
+          shape += 1
+          shape %= 3
+        }
+
+        p.setup = function() {
+          p.createCanvas(200, 200)
+          point1 = c2d.collisionPrimitive('POINT', 100,40)
+          box1 = c2d.collisionPrimitive('BOX', 40,160,30,40)
+          circle1 = c2d.collisionPrimitive('CIRCLE', 160,160,20)
+          point21 = c2d.collisionPrimitive('POINT', 0,0)
+          point22 = c2d.collisionPrimitive('POINT', 0,0)
+          point23 = c2d.collisionPrimitive('POINT', 0,0)
+          point24 = c2d.collisionPrimitive('POINT', 0,0)
+          point2 = c2d.collisionPrimitive('POINT', 0,0)
+          box2 = c2d.collisionPrimitive('BOX', 0,0,10,10)
+          circle2 = c2d.collisionPrimitive('CIRCLE', 0,0,10)
+          follower = [point2, box2, circle2]
+        }
+
+        p.draw = function() {
+          p.background(200)
+          let f = follower[shape]
+          f.center = [p.mouseX-20, p.mouseY-20]
+          if (
+            c2d.colliding(f,point1, 2) ||
+            c2d.colliding(f,box1) ||
+            c2d.colliding(f,circle1)
+          ) {
+            p.background(200, 80, 100)
+          }
+          c2d.drawCollisionOverlays()
+        }
+      }
+
+      let myp5 = new p5(sketch)
+      
+  </script>
+</body>
+
+</html>
