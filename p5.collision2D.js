@@ -72,7 +72,7 @@ Collision2D.prototype._collisionPoint = class {
     this.parent.objects.push(this)
   }
 
-  get pos() {
+  get center() {
     return this._position
   }  
   get x() {
@@ -82,7 +82,7 @@ Collision2D.prototype._collisionPoint = class {
     return this._position.y
   }
 
-  set pos(vec) {
+  set center(vec) {
     this._position.set(vec)
   }  
   set x(x) {
@@ -93,8 +93,8 @@ Collision2D.prototype._collisionPoint = class {
   }
 
   draw = function() {
-    this.parent.sketch.circle(this.pos.x, this.pos.y, 2)
-    this.parent.sketch.circle(this.pos.x, this.pos.y, 5)
+    this.parent.sketch.line(this.x-2, this.y, this.x+2, this.y)
+    this.parent.sketch.line(this.x, this.y-2, this.x, this.y+2)
   }
 
 }
@@ -235,22 +235,22 @@ Collision2D.prototype._collisionCircle = class {
 Collision2D.prototype._collidingPointPoint = function(point1, point2, margin) {
   margin = margin || 2
   return (
-    point1.pos.dist(point2.pos) <= margin
+    point1.center.dist(point2.center) <= margin
   )
 }
 
 Collision2D.prototype._collidingPointBox = function(point, box) {
   return (
-    point.pos.x >= box._xmin &&
-    point.pos.x <= box._xmax &&
-    point.pos.y >= box._ymin &&
-    point.pos.y <= box._ymax
+    point.x >= box._xmin &&
+    point.x <= box._xmax &&
+    point.y >= box._ymin &&
+    point.y <= box._ymax
   )
 }
 
 Collision2D.prototype._collidingPointCircle = function(point, circle) {
   return (
-    point.pos.dist(circle.center) <= circle.radius
+    point.center.dist(circle.center) <= circle.radius
   )
 }
 

@@ -51,7 +51,7 @@ let point1 = c2d.collisionPrimitive('POINT', x: number, y: number)
 let point2 = c2d.collisionPrimitive('POINT', position: p5.Vector)
 
 // properties
-collisionPoint.pos: like p5.Vector
+collisionPoint.center: like p5.Vector
 collisionPoint.x: number
 collisionPoint.y: number
 ```
