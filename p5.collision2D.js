@@ -83,11 +83,7 @@ Collision2D.prototype._collisionPoint = class {
   }
 
   set pos(vec) {
-    if (vec instanceof p5.Vector) {
-      this._position = vec
-      return
-    }
-    throw 'collisionPoint.pos accepts only p5.Vector'
+    this._position.set(vec)
   }  
   set x(x) {
     this._position.x = x
@@ -153,18 +149,10 @@ Collision2D.prototype._collisionBox = class {
   }
 
   set center(vec) {
-    if (vec instanceof p5.Vector) {
-      this._center = vec
-      return
-    }
-    throw 'collisionBox.center accepts only p5.Vector'
+    this._center.set(vec)
   }
   set size(vec) {
-    if (vec instanceof p5.Vector) {
-      this._size = vec
-      return
-    }
-    throw 'collisionBox.size accepts only p5.Vector'
+    this._size.set(vec)
   }
   set cx(x) {
     this._center.x = x
@@ -221,11 +209,7 @@ Collision2D.prototype._collisionCircle = class {
   }
 
   set center(vec) {
-    if (vec instanceof p5.Vector) {
-      this._center = vec
-      return
-    }
-    throw 'collisionCircle.center accepts only p5.Vector'
+    this._center.set(vec)
   }
   set radius(r) {
     this._radius = r
