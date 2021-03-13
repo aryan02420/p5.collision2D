@@ -210,6 +210,9 @@ Collision2D.prototype._collisionCircle = class {
   get radius() {
     return this._radius
   }
+  get diameter() {
+    return this._radius * 2
+  }
   get cx() {
     return this._center.x
   }
@@ -226,6 +229,9 @@ Collision2D.prototype._collisionCircle = class {
   }
   set radius(r) {
     this._radius = r
+  }
+  set diameter(d) {
+    this._radius = d / 2
   }
   set cx(x) {
     this._center.x = x
@@ -274,8 +280,14 @@ Collision2D.prototype._collidingBoxBox = function(box1, box2) {
 }
 
 Collision2D.prototype._collidingBoxCircle = function(box, circle) {
+  let tx = circle.cx
+  let ty = circle.cy
+  if (circle.cx < box._xmin) tx = box._xmin
+  else if (circle.cx > box._xmax) tx = box._xmax
+  if (circle.cy < box._ymin) ty = box._ymin
+  else if (circle.cy > box._ymax) ty = box._ymax
   return (
-    false
+    circle.center.dist(this.sketch.createVector(tx, ty)) <= circle.radius
   )
 }
 
