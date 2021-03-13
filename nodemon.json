@@ -1,0 +1,5 @@
+{
+    "events": {
+        "start": "cp -f p5.collision2D.js ./demo/p5.collision2D.js"
+    }
+}
