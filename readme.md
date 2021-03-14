@@ -2,7 +2,11 @@
 
 ![banner](/banner.jpg)
 
-rewrite of [p5.collide2D](https://github.com/bmoren/p5.collide2D) <br/> this project is a work in progress
+rewrite of [bmoren/p5.collide2D](https://github.com/bmoren/p5.collide2D) and [jeffThompson/CollisionDetection](https://github.com/jeffThompson/CollisionDetection)
+
+this project is a work in progress
+
+[![cc-by-nc-sa-4.0][license-image]][license-url]
 
 [demo](https://aryan02420.github.io/p5.collision2D/demo/)
 
@@ -134,3 +138,5 @@ let sketch = function(p) {
 
 let myp5 = new p5(sketch)
 ```
+[license-image]: https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png
+[license-url]: http://creativecommons.org/licenses/by-nc-sa/4.0/
