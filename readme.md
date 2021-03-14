@@ -11,7 +11,7 @@ rewrite of [p5.collide2D](https://github.com/bmoren/p5.collide2D) <br/> this pro
 ### Supported Primitives
 
  - :green_circle:   point
- - :red_circle:     line
+ - :yellow_circle:  line
  - :green_circle:   box
  - :green_circle:   circle
  - :red_circle:     ellipse
@@ -56,6 +56,21 @@ let point2 = c2d.collisionPrimitive('POINT', position: p5.Vector)
 collisionPoint.center: like p5.Vector
 collisionPoint.x: number
 collisionPoint.y: number
+```
+
+###### Line
+
+```
+let line1 = c2d.collisionPrimitive('LINE', x1: number, y1: number, x2: number, y2: number)
+let line2 = c2d.collisionPrimitive('LINE', start: p5.Vector, end: p5.Vector)
+
+// properties
+collisionPoint.start: like p5.Vector
+collisionPoint.end: like p5.Vector
+collisionPoint.x1: number
+collisionPoint.y1: number
+collisionPoint.x2: number
+collisionPoint.y2: number
 ```
 
 ###### Box

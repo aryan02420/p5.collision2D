@@ -15,8 +15,8 @@
 
       let sketch = function(p) {
         let c2d = new Collision2D(p)
-        let point1, box1, circle1
-        let point2, box2, circle2
+        let point1, line1, box1, circle1
+        let point2, line2, box2, circle2
         let follower;
         let shape = 0;
 
@@ -28,12 +28,9 @@
         p.setup = function() {
           p.createCanvas(200, 200)
           point1 = c2d.collisionPrimitive('POINT', 100,40)
+          line1 = c2d.collisionPrimitive('LINE', 40,160,30,40)
           box1 = c2d.collisionPrimitive('BOX', 40,160,30,40)
           circle1 = c2d.collisionPrimitive('CIRCLE', 160,160,20)
-          point21 = c2d.collisionPrimitive('POINT', 0,0)
-          point22 = c2d.collisionPrimitive('POINT', 0,0)
-          point23 = c2d.collisionPrimitive('POINT', 0,0)
-          point24 = c2d.collisionPrimitive('POINT', 0,0)
           point2 = c2d.collisionPrimitive('POINT', 0,0)
           box2 = c2d.collisionPrimitive('BOX', 0,0,10,10)
           circle2 = c2d.collisionPrimitive('CIRCLE', 0,0,10)

@@ -1,5 +1,5 @@
 {
     "events": {
-        "start": "cp -f p5.collision2D.js ./demo/p5.collision2D.js"
+        "start": "cp -f p5.collision2D.js ./demo/p5.collision2D.js && echo copied p5.collision2D.js"
     }
 }

@@ -8,6 +8,8 @@ function Collision2D(p) {
     switch (type.toString().toUpperCase()) {
       case 'POINT':
         return new THIS._collisionPoint(THIS, ...args)
+      case 'LINE':
+        return new THIS._collisionLine(THIS, ...args)
       case 'BOX':
         return new THIS._collisionBox(THIS, ...args)
       case 'CIRCLE':
@@ -20,24 +22,43 @@ function Collision2D(p) {
   this.colliding = function(obj1, obj2, margin) {
     let typeOfCollision = obj1.type + obj2.type
     switch (typeOfCollision) {
+
       case 'POINTPOINT':
         return THIS._collidingPointPoint(obj1, obj2, margin)
+      case 'POINTLINE':
+        return THIS._collidingPointLine(obj1, obj2, margin)
       case 'POINTBOX':
         return THIS._collidingPointBox(obj1, obj2, margin)
       case 'POINTCIRCLE':
         return THIS._collidingPointCircle(obj1, obj2, margin)
+
+      case 'LINEPOINT':
+        return THIS._collidingPointLine(obj2, obj1, margin)
+      case 'LINELINE':
+        return THIS._collidingLineLine(obj1, obj2, margin)
+      case 'LINEBOX':
+        return THIS._collidingLineBox(obj1, obj2, margin)
+      case 'LINECIRCLE':
+        return THIS._collidingLineCircle(obj1, obj2, margin)
+
       case 'BOXPOINT':
         return THIS._collidingPointBox(obj2, obj1, margin)
+      case 'BOXLINE':
+        return THIS._collidingLineBox(obj2, obj1, margin)
       case 'BOXBOX':
         return THIS._collidingBoxBox(obj1, obj2, margin)
       case 'BOXCIRCLE':
         return THIS._collidingBoxCircle(obj1, obj2, margin)
+
       case 'CIRCLEPOINT':
         return THIS._collidingPointCircle(obj2, obj1, margin)
+      case 'CIRCLELINE':
+        return THIS._collidingLineCircle(obj2, obj1, margin)
       case 'CIRCLEBOX':
         return THIS._collidingBoxCircle(obj2, obj1, margin)
       case 'CIRCLECIRCLE':
         return THIS._collidingCircleCircle(obj1, obj2, margin)
+
       default:
         throw 'unknown collision type'
   
@@ -95,6 +116,74 @@ Collision2D.prototype._collisionPoint = class {
   draw = function() {
     this.parent.sketch.line(this.x-2, this.y, this.x+2, this.y)
     this.parent.sketch.line(this.x, this.y-2, this.x, this.y+2)
+  }
+
+}
+
+Collision2D.prototype._collisionLine = class {
+
+  type = 'LINE'
+
+  constructor(parent, ...args) {
+    this.parent = parent
+    if (args.length === 2 && args[0] instanceof p5.Vector && args[1] instanceof p5.Vector) {
+      this._start = args[0]
+      this._end = args[0]
+    } else if (args.length === 4) {
+      this._start = this.parent.sketch.createVector(args[0], args[1])
+      this._end = this.parent.sketch.createVector(args[2], args[3])
+    } else {
+      throw 'unknown signature in constructor collisonLine'
+    }
+    this.parent.objects.push(this)
+  }
+
+  get start() {
+    return this._start
+  }  
+  get x1() {
+    return this._start.x
+  }  
+  get y1() {
+    return this._start.y
+  }
+  get end() {
+    return this._end
+  }  
+  get x2() {
+    return this._end.x
+  }  
+  get y2() {
+    return this._end.y
+  }
+  get angle() {
+    return this.parent.sketch.atan2(this._end.y - this._start.y, this._end.x - this._start.x)
+  }
+
+  set start(vec) {
+    this._start.set(vec)
+  }  
+  set x1(x) {
+    this._start.x = x
+  }  
+  set y1(y) {
+    this._start.y = y
+  }
+  set end(vec) {
+    this.end.set(vec)
+  }  
+  set x2(x) {
+    this.end.x = x
+  }  
+  set y2(y) {
+    this.end.y = y
+  }
+  set angle(a) {
+    console.warn('setting angle of line is not yet implemented')
+  }
+
+  draw = function() {
+    this.parent.sketch.line(this.x1, this.y1, this.x2, this.y2)
   }
 
 }
