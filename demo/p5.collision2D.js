@@ -320,11 +320,23 @@ Collision2D.prototype._collisionCircle = class {
 
 }
 
+// POINT
 
 Collision2D.prototype._collidingPointPoint = function(point1, point2, margin) {
   margin = margin || 2
   return (
     point1.center.dist(point2.center) <= margin
+  )
+}
+
+Collision2D.prototype._collidingPointLine = function(point, line, margin) {
+  margin = margin || 0.05
+  let d1 = point.center.dist(line.start)
+  let d2 = point.center.dist(line.end)
+  let len = line.start.dist(line.end)
+  return (
+    d1 + d2 >= len - margin &&
+    d1 + d2 <= len + margin
   )
 }
 
@@ -342,6 +354,38 @@ Collision2D.prototype._collidingPointCircle = function(point, circle) {
     point.center.dist(circle.center) <= circle.radius
   )
 }
+
+// LINE
+
+Collision2D.prototype._collidingLineLine = function(line1, line2) {
+  let x1 = line1.x1
+  let x2 = line1.x2
+  let x3 = line2.x1
+  let x4 = line2.x2
+  let y1 = line1.y1
+  let y2 = line1.y2
+  let y3 = line2.y1
+  let y4 = line2.y2
+  let uA = ((x4-x3)*(y1-y3) - (y4-y3)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
+  let uB = ((x2-x1)*(y1-y3) - (y2-y1)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
+  return (
+    uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1
+  )
+}
+
+Collision2D.prototype._collidingLineBox = function(line, box) {
+  return (
+    false
+  )
+}
+
+Collision2D.prototype._collidingLineCircle = function(line, circle) {
+  return (
+    false
+  )
+}
+
+// BOX
 
 Collision2D.prototype._collidingBoxBox = function(box1, box2) {
   return (
@@ -363,6 +407,8 @@ Collision2D.prototype._collidingBoxCircle = function(box, circle) {
     circle.center.dist(this.sketch.createVector(tx, ty)) <= circle.radius
   )
 }
+
+// CIRCLE
 
 Collision2D.prototype._collidingCircleCircle = function(circle1, circle2) {
   return (

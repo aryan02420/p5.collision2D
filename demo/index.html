@@ -17,32 +17,39 @@
         let c2d = new Collision2D(p)
         let point1, line1, box1, circle1
         let point2, line2, box2, circle2
-        let follower;
+        let static, follower;
         let shape = 0;
 
         p.mouseWheel = function(event) {
           shape += 1
-          shape %= 3
+          shape %= 4
         }
 
         p.setup = function() {
           p.createCanvas(200, 200)
-          point1 = c2d.collisionPrimitive('POINT', 100,40)
-          line1 = c2d.collisionPrimitive('LINE', 40,160,30,40)
-          box1 = c2d.collisionPrimitive('BOX', 40,160,30,40)
-          circle1 = c2d.collisionPrimitive('CIRCLE', 160,160,20)
+          point1 = c2d.collisionPrimitive('POINT', 40,40)
+          line1 = c2d.collisionPrimitive('LINE', 160,40,140,20)
+          box1 = c2d.collisionPrimitive('BOX', 160,160,30,40)
+          circle1 = c2d.collisionPrimitive('CIRCLE', 40,160,20)
           point2 = c2d.collisionPrimitive('POINT', 0,0)
+          line2 = c2d.collisionPrimitive('LINE', 100,100,0,0)
           box2 = c2d.collisionPrimitive('BOX', 0,0,10,10)
           circle2 = c2d.collisionPrimitive('CIRCLE', 0,0,10)
-          follower = [point2, box2, circle2]
+          static = [point1, line1, box1, circle1]
+          follower = [point2, line2, box2, circle2]
         }
 
         p.draw = function() {
           p.background(200)
           let f = follower[shape]
-          f.center = [p.mouseX-20, p.mouseY-20]
+          if (f.type === 'LINE') {
+            f.end = [p.mouseX-20, p.mouseY-20]
+          } else {
+            f.center = [p.mouseX-20, p.mouseY-20]
+          }
           if (
             c2d.colliding(f,point1, 2) ||
+            c2d.colliding(f,line1) ||
             c2d.colliding(f,box1) ||
             c2d.colliding(f,circle1)
           ) {

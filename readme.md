@@ -25,8 +25,8 @@ rewrite of [p5.collide2D](https://github.com/bmoren/p5.collide2D) <br/> this pro
 
 |               | point         | line          | box           | circle        | ellipse       | arc           | polygon       | triangle      | capsule       |
 | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
-| point         |:green_circle: |:red_circle:   |:green_circle: |:green_circle: |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
-| line          |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
+| point         |:green_circle: |:yellow_circle:|:green_circle: |:green_circle: |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
+| line          |:yellow_circle:|:green_circle: |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
 | box           |:green_circle: |:red_circle:   |:green_circle: |:green_circle: |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
 | circle        |:green_circle: |:red_circle:   |:green_circle: |:green_circle: |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
 | ellipse       |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |:red_circle:   |
@@ -53,7 +53,7 @@ let point1 = c2d.collisionPrimitive('POINT', x: number, y: number)
 let point2 = c2d.collisionPrimitive('POINT', position: p5.Vector)
 
 // properties
-collisionPoint.center: like p5.Vector
+collisionPoint.center: p5.Vector
 collisionPoint.x: number
 collisionPoint.y: number
 ```
@@ -65,8 +65,8 @@ let line1 = c2d.collisionPrimitive('LINE', x1: number, y1: number, x2: number, y
 let line2 = c2d.collisionPrimitive('LINE', start: p5.Vector, end: p5.Vector)
 
 // properties
-collisionPoint.start: like p5.Vector
-collisionPoint.end: like p5.Vector
+collisionPoint.start: p5.Vector
+collisionPoint.end: p5.Vector
 collisionPoint.x1: number
 collisionPoint.y1: number
 collisionPoint.x2: number
@@ -80,8 +80,8 @@ let box1 = c2d.collisionPrimitive('BOX', cx: number, cy: number, w: number, h: n
 let box2 = c2d.collisionPrimitive('BOX', center: p5.Vector, size: p5.Vector)
 
 // properties
-collisionBox.center: like p5.Vector
-collisionBox.size: like p5.Vector
+collisionBox.center: p5.Vector
+collisionBox.size: p5.Vector
 collisionBox.width: number
 collisionBox.height: number
 collisionBox.cx: number
@@ -95,7 +95,7 @@ let circle1 = c2d.collisionPrimitive('CIRCLE', x: number, y: number, r: number)
 let circle2 = c2d.collisionPrimitive('CIRCLE', center: p5.Vector, radius: number)
 
 // properties
-collisionCircle.center: like p5.Vector
+collisionCircle.center: p5.Vector
 collisionCircle.radius: number
 collisionCircle.diameter: number
 collisionCircle.cx: number
