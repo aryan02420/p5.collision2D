@@ -65,12 +65,12 @@ let line1 = c2d.collisionPrimitive('LINE', x1: number, y1: number, x2: number, y
 let line2 = c2d.collisionPrimitive('LINE', start: p5.Vector, end: p5.Vector)
 
 // properties
-collisionPoint.start: p5.Vector
-collisionPoint.end: p5.Vector
-collisionPoint.x1: number
-collisionPoint.y1: number
-collisionPoint.x2: number
-collisionPoint.y2: number
+collisionLine.start: p5.Vector
+collisionLine.end: p5.Vector
+collisionLine.x1: number
+collisionLine.y1: number
+collisionLine.x2: number
+collisionLine.y2: number
 ```
 
 ###### Box
