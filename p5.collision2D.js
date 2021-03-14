@@ -155,6 +155,15 @@ Collision2D.prototype._collisionLine = class {
   }  
   get y2() {
     return this._end.y
+  } 
+  get delta() {
+    return p5.Vector.sub(this._end, this._start)
+  } 
+  get dx() {
+    return this._end.y - this._start.x
+  }  
+  get dy() {
+    return this._end.y - this._start.y
   }
   get angle() {
     return this.parent.sketch.atan2(this._end.y - this._start.y, this._end.x - this._start.x)
@@ -374,15 +383,27 @@ Collision2D.prototype._collidingLineLine = function(line1, line2) {
 }
 
 Collision2D.prototype._collidingLineBox = function(line, box) {
-  return (
-    false
-  )
+  let inside1 = this._collidingPointBox({x: line.x1, y: line.y1}, box)
+  let inside2 = this._collidingPointBox({x: line.x2, y: line.y2}, box)
+  if (inside1 || inside2) return true
+  let left    = this._collidingLineLine(line, {x1: box._xmin, y1: box._ymin, x2: box._xmin, y2: box._ymax})
+  let right   = this._collidingLineLine(line, {x1: box._xmax, y1: box._ymin, x2: box._xmax, y2: box._ymax})
+  let top     = this._collidingLineLine(line, {x1: box._xmin, y1: box._ymin, x2: box._xmax, y2: box._ymin})
+  let bottom  = this._collidingLineLine(line, {x1: box._xmin, y1: box._ymax, x2: box._xmax, y2: box._ymax})
+  return (left || right || top || bottom)
 }
 
 Collision2D.prototype._collidingLineCircle = function(line, circle) {
-  return (
-    false
-  )
+  let inside1 = this._collidingPointCircle({center: line.start}, circle)
+  let inside2 = this._collidingPointCircle({center: line.end}, circle)
+  if (inside1 || inside2) return true
+  let len = line.start.dist(line.end)
+  let dot = (p5.Vector.sub(circle.center, line.start)).dot(p5.Vector.sub(line.end, line.start)) / (len * len)
+  let closest = p5.Vector.add(line.start, p5.Vector.mult(line.delta, dot))
+  let pointinsidecircle = this._collidingPointCircle({center: closest}, circle)
+  if (!pointinsidecircle) return false
+  let pointonline = this._collidingPointLine({center: closest}, line)
+  return (pointonline)
 }
 
 // BOX
