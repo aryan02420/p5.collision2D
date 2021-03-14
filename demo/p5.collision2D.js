@@ -60,7 +60,8 @@ function Collision2D(p) {
         return THIS._collidingCircleCircle(obj1, obj2, margin)
 
       default:
-        throw 'unknown collision type'
+        console.warn(`ignoring unknown collision type: ${typeOfCollision}`)
+        return false
   
     }
   }
