@@ -53,8 +53,8 @@ let c2d = new Collision2D()
 ###### Point
 
 ```
-let point1 = c2d.collisionPrimitive('POINT', x: number, y: number)
-let point2 = c2d.collisionPrimitive('POINT', position: p5.Vector)
+let point1 = c2d.createCollisionPrimitive('POINT', x: number, y: number)
+let point2 = c2d.createCollisionPrimitive('POINT', position: p5.Vector)
 
 // properties
 collisionPoint.center: p5.Vector
@@ -65,8 +65,8 @@ collisionPoint.y: number
 ###### Line
 
 ```
-let line1 = c2d.collisionPrimitive('LINE', x1: number, y1: number, x2: number, y2: number)
-let line2 = c2d.collisionPrimitive('LINE', start: p5.Vector, end: p5.Vector)
+let line1 = c2d.createCollisionPrimitive('LINE', x1: number, y1: number, x2: number, y2: number)
+let line2 = c2d.createCollisionPrimitive('LINE', start: p5.Vector, end: p5.Vector)
 
 // properties
 collisionLine.start: p5.Vector
@@ -80,8 +80,8 @@ collisionLine.y2: number
 ###### Box
 
 ```
-let box1 = c2d.collisionPrimitive('BOX', cx: number, cy: number, w: number, h: number)
-let box2 = c2d.collisionPrimitive('BOX', center: p5.Vector, size: p5.Vector)
+let box1 = c2d.createCollisionPrimitive('BOX', cx: number, cy: number, w: number, h: number)
+let box2 = c2d.createCollisionPrimitive('BOX', center: p5.Vector, size: p5.Vector)
 
 // properties
 collisionBox.center: p5.Vector
@@ -95,8 +95,8 @@ collisionBox.cy: number
 ###### Circle
 
 ```
-let circle1 = c2d.collisionPrimitive('CIRCLE', x: number, y: number, r: number)
-let circle2 = c2d.collisionPrimitive('CIRCLE', center: p5.Vector, radius: number)
+let circle1 = c2d.createCollisionPrimitive('CIRCLE', x: number, y: number, r: number)
+let circle2 = c2d.createCollisionPrimitive('CIRCLE', center: p5.Vector, radius: number)
 
 // properties
 collisionCircle.center: p5.Vector
@@ -109,7 +109,7 @@ collisionCircle.cy: number
 ##### Checking Collisions
 
 ```
-c2d.colliding(obj1: any, obj2: any, [margin: float]): boolean
+c2d.checkColliding(obj1: any, obj2: any, [margin: float]): boolean
 ```
 
 ##### Drawing Hitboxes
@@ -127,7 +127,7 @@ let sketch = function(p) {
 
   p.setup = function() {
     p.createCanvas(200, 200)
-    box1 = c2d.collisionPrimitive('BOX', 100,150,100,50)
+    box1 = c2d.createCollisionPrimitive('BOX', 100,150,100,50)
   }
 
   p.draw = function() {
