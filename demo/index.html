@@ -23,6 +23,9 @@
         p.mouseWheel = function(event) {
           shape += 1
           shape %= 4
+          c2d.clearLayer('follower')
+          c2d.addObjToLayer(follower[shape], 'follower')
+
         }
 
         p.setup = function() {
@@ -35,7 +38,7 @@
           circle1 = c2d.createCollisionPrimitive('CIRCLE', 40,160,20)
 
           point2 = c2d.createCollisionPrimitive('POINT', 100,100)
-          line2 = c2d.createCollisionPrimitive('LINE', 100,100,100,100)
+          line2 = c2d.createCollisionPrimitive('LINE', 100,100,101,101)
           box2 = c2d.createCollisionPrimitive('BOX', 100,100,25,15)
           circle2 = c2d.createCollisionPrimitive('CIRCLE', 100,100,10)
 
@@ -43,7 +46,8 @@
           follower = [point2, line2, box2, circle2]
 
           c2d.addObjToLayer(static, 'static')
-          c2d.addObjToLayer(follower, 'follower')
+          c2d.setLayerStyle('follower', {fill: 100})
+          c2d.setLayerStyle('static', {strokeweight: 2})
 
         }
 
@@ -58,8 +62,11 @@
           if ( c2d.getColliding('follower', 'static').length > 0) {
             p.background(200, 80, 100)
           }
-          c2d.drawCollisionOverlays('DEFAULT')
+          c2d.drawCollisionOverlays('static')
+          c2d.drawCollisionOverlays('follower')
+          //c2d.drawCollisionOverlays()
         }
+        console.log(c2d)
       }
 
       let myp5 = new p5(sketch)

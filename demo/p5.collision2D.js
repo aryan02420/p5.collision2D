@@ -2,11 +2,15 @@ function Collision2D(p) {
 
   this.sketch = p || window
   this.layers = {}
-  this.layers.DEFAULT = []
-  this.layers.POINT = []
-  this.layers.LINE = []
-  this.layers.BOX = []
-  this.layers.CIRCLE = []
+  this.layers.DEFAULT = {
+    objects: [],
+    styles: {
+      fill: false,
+      stroke: 100,
+      strokeweight: 0.6,
+      blendmode: 'DIFFERENCE'
+    }
+  }
   let THIS = this
 
   this.createCollisionPrimitive = function (type, ...args) {
@@ -25,8 +29,19 @@ function Collision2D(p) {
   }
 
   this.addObjToLayer = function(obj, layer) {
-    this.layers[layer] = this.layers[layer] || [] 
-    this.layers[layer] = this.layers[layer].concat(obj)
+    this.layers[layer] = this.layers[layer] || {}
+    this.layers[layer].objects = this.layers[layer].objects || []
+    this.layers[layer].objects = this.layers[layer].objects.concat(obj)
+  }
+
+  this.clearLayer = function(layer) {
+    this.layers[layer] = this.layers[layer] || {}
+    this.layers[layer].objects = []
+  }
+
+  this.setLayerStyle = function(layer, styles) {
+    this.layers[layer] = this.layers[layer] || {}
+    this.layers[layer].styles = styles
   }
 
   this.checkColliding = function(obj1, obj2, margin) {
@@ -77,8 +92,8 @@ function Collision2D(p) {
   }
 
   this.getColliding = function(layer1, layer2) {
-    layer1 = this.layers[layer1] || []
-    layer2 = this.layers[layer2] || []
+    layer1 = this.layers[layer1]?.objects || []
+    layer2 = this.layers[layer2]?.objects || []
     let l1 = layer1.length
     let l2 = layer2.length
     let listOfColliding = []
@@ -94,11 +109,23 @@ function Collision2D(p) {
 
   this.drawCollisionOverlays = function(layer = 'DEFAULT'){
     THIS.sketch.push()
-    THIS.sketch.blendMode(THIS.sketch.DIFFERENCE)
-    THIS.sketch.noFill()
-    THIS.sketch.stroke(100)
-    layer = THIS.layers[layer] || []
-    for (const obj of layer) {
+    layer = THIS.layers[layer] || {}
+    let defaultstyles = Object.assign({}, THIS.layers.DEFAULT.styles)
+    let layerstyles = Object.assign(defaultstyles, layer.styles || {})
+    THIS.sketch.blendMode(THIS.sketch[layerstyles.blendmode])
+    if (!layerstyles.fill) {
+      THIS.sketch.noFill()
+    } else {
+      THIS.sketch.fill(layerstyles.fill)
+    }
+    if (!layerstyles.stroke) {
+      THIS.sketch.noStroke()
+    } else {
+      THIS.sketch.stroke(layerstyles.stroke)
+      THIS.sketch.strokeWeight(layerstyles.strokeweight)
+    }
+    let layerobjs = layer.objects || []
+    for (const obj of layerobjs) {
       obj.draw()
     }
     THIS.sketch.pop()
@@ -111,7 +138,7 @@ Collision2D.prototype._collisionPrimitive = class {
 
   constructor(parent) {
     this.parent = parent
-    this.parent.layers.DEFAULT.push(this)
+    this.parent.addObjToLayer(this, 'DEFAULT')
   }
 
 }
@@ -129,7 +156,7 @@ Collision2D.prototype._collisionPoint = class extends Collision2D.prototype._col
     } else {
       throw 'unknown signature in constructor collisonPoint'
     }
-    this.parent.layers.POINT.push(this)
+    this.parent.addObjToLayer(this, this.type)
   }
 
   get center() {
@@ -174,7 +201,7 @@ Collision2D.prototype._collisionLine = class extends Collision2D.prototype._coll
     } else {
       throw 'unknown signature in constructor collisonLine'
     }
-    this.parent.layers.LINE.push(this)
+    this.parent.addObjToLayer(this, this.type)
   }
 
   get start() {
@@ -251,7 +278,7 @@ Collision2D.prototype._collisionBox = class extends Collision2D.prototype._colli
     } else {
       throw 'unknown signature in constructor collisonBox'
     }
-    this.parent.layers.BOX.push(this)
+    this.parent.addObjToLayer(this, this.type)
   }
 
   get center() {
@@ -326,7 +353,7 @@ Collision2D.prototype._collisionCircle = class extends Collision2D.prototype._co
     } else {
       throw 'unknown signature in constructor collisonCircle'
     }
-    this.parent.layers.CIRCLE.push(this)
+    this.parent.addObjToLayer(this, this.type)
   }
 
   get center() {
