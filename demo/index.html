@@ -39,8 +39,12 @@
           box2 = c2d.createCollisionPrimitive('BOX', 100,100,25,15)
           circle2 = c2d.createCollisionPrimitive('CIRCLE', 100,100,10)
 
-          static = [point1, line1, line11, box1, circle1]
+          static = [point1, point11, line1, line11, box1, circle1]
           follower = [point2, line2, box2, circle2]
+
+          c2d.addObjToLayer(static, 'static')
+          c2d.addObjToLayer(follower, 'follower')
+
         }
 
         p.draw = function() {
@@ -51,14 +55,7 @@
           } else {
             f.center = [p.mouseX-20, p.mouseY-20]
           }
-          if (
-            c2d.colliding(f,point1) ||
-            c2d.colliding(f,point11) ||
-            c2d.colliding(f,line1) ||
-            c2d.colliding(f,line11) ||
-            c2d.colliding(f,box1) ||
-            c2d.colliding(f,circle1)
-          ) {
+          if ( c2d.getColliding('follower', 'static').length > 0) {
             p.background(200, 80, 100)
           }
           c2d.drawCollisionOverlays('DEFAULT')

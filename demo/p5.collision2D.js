@@ -9,11 +9,6 @@ function Collision2D(p) {
   this.layers.CIRCLE = []
   let THIS = this
 
-  this.addObjToLayer = function(obj, layer) {
-    this.layers[layer] = this.layers[layer] || [] 
-    this.layers[layer] = this.layers[layer].concat(obj)
-  }
-
   this.createCollisionPrimitive = function (type, ...args) {
     switch (type.toString().toUpperCase()) {
       case 'POINT':
@@ -29,7 +24,12 @@ function Collision2D(p) {
     }
   }
 
-  this.colliding = function(obj1, obj2, margin) {
+  this.addObjToLayer = function(obj, layer) {
+    this.layers[layer] = this.layers[layer] || [] 
+    this.layers[layer] = this.layers[layer].concat(obj)
+  }
+
+  this.checkColliding = function(obj1, obj2, margin) {
     let typeOfCollision = obj1.type + obj2.type
     switch (typeOfCollision) {
 
@@ -74,6 +74,22 @@ function Collision2D(p) {
         return false
   
     }
+  }
+
+  this.getColliding = function(layer1, layer2) {
+    layer1 = this.layers[layer1] || []
+    layer2 = this.layers[layer2] || []
+    let l1 = layer1.length
+    let l2 = layer2.length
+    let listOfColliding = []
+    for (let i = 0; i < l1; i++) {
+      for (let j = 0; j < l2; j++) {
+        if (this.checkColliding(layer1[i], layer2[j])) {
+          listOfColliding.push([layer1[i], layer2[j]])
+        }        
+      }      
+    }
+    return listOfColliding
   }
 
   this.drawCollisionOverlays = function(layer = 'DEFAULT'){
