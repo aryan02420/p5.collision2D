@@ -1,6 +1,6 @@
 {
   "name": "p5.collision2d",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "rewrite of [p5.collide2D](https://github.com/bmoren/p5.collide2D)",
   "main": "p5.collision2D.js",
   "scripts": {
