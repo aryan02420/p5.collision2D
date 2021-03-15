@@ -79,11 +79,13 @@
       let shape = 0;
 
       p.mouseWheel = function (event) {
-        shape += 1
-        shape %= 4
-        c2d.clearLayer('follower')
-        c2d.addObjToLayer(follower[shape], 'follower')
-
+        if ((c2d._collidingPointBox({x: p.mouseX, y: p.mouseY}, {_xmin: 0, _ymin: 0, _xmax: 200, _ymax: 200}))) {
+          shape += 1
+          shape %= 4
+          c2d.clearLayer('follower')
+          c2d.addObjToLayer(follower[shape], 'follower')
+          return false
+        }
       }
 
       p.setup = function () {

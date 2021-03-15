@@ -28,20 +28,25 @@ function Collision2D(p) {
     }
   }
 
-  this.addObjToLayer = function(obj, layer) {
+  this.getLayer = function(layer) {
     this.layers[layer] = this.layers[layer] || {}
-    this.layers[layer].objects = this.layers[layer].objects || []
-    this.layers[layer].objects = this.layers[layer].objects.concat(obj)
+    return this.layers[layer]
+  }
+
+  this.addObjToLayer = function(obj, layer) {
+    layer = this.getLayer(layer)
+    layer.objects = layer.objects || []
+    layer.objects = layer.objects.concat(obj)
   }
 
   this.clearLayer = function(layer) {
-    this.layers[layer] = this.layers[layer] || {}
-    this.layers[layer].objects = []
+    layer = this.getLayer(layer)
+    layer.objects = []
   }
 
   this.setLayerStyle = function(layer, styles) {
-    this.layers[layer] = this.layers[layer] || {}
-    this.layers[layer].styles = styles
+    layer = this.getLayer(layer)
+    layer.styles = styles
   }
 
   this.checkColliding = function(obj1, obj2, margin) {
@@ -92,8 +97,8 @@ function Collision2D(p) {
   }
 
   this.getColliding = function(layer1, layer2) {
-    layer1 = this.layers[layer1]?.objects || []
-    layer2 = this.layers[layer2]?.objects || []
+    layer1 = this.getLayer(layer1).objects || []
+    layer2 = this.getLayer(layer2).objects || []
     let l1 = layer1.length
     let l2 = layer2.length
     let listOfColliding = []
@@ -109,7 +114,7 @@ function Collision2D(p) {
 
   this.drawCollisionOverlays = function(layer = 'DEFAULT'){
     THIS.sketch.push()
-    layer = THIS.layers[layer] || {}
+    layer = this.getLayer(layer)
     let defaultstyles = Object.assign({}, THIS.layers.DEFAULT.styles)
     let layerstyles = Object.assign(defaultstyles, layer.styles || {})
     THIS.sketch.blendMode(THIS.sketch[layerstyles.blendmode])
