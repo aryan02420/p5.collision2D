@@ -27,17 +27,17 @@
 
         p.setup = function() {
           p.createCanvas(200, 200)
-          point1 = c2d.collisionPrimitive('POINT', 40,40)
-          point11 = c2d.collisionPrimitive('POINT', 50,20)
-          line1 = c2d.collisionPrimitive('LINE', 160,40,150,30)
-          line11 = c2d.collisionPrimitive('LINE', 120,50,140,10)
-          box1 = c2d.collisionPrimitive('BOX', 160,160,30,40)
-          circle1 = c2d.collisionPrimitive('CIRCLE', 40,160,20)
+          point1 = c2d.createCollisionPrimitive('POINT', 40,40)
+          point11 = c2d.createCollisionPrimitive('POINT', 50,20)
+          line1 = c2d.createCollisionPrimitive('LINE', 160,40,150,30)
+          line11 = c2d.createCollisionPrimitive('LINE', 120,50,140,10)
+          box1 = c2d.createCollisionPrimitive('BOX', 160,160,30,40)
+          circle1 = c2d.createCollisionPrimitive('CIRCLE', 40,160,20)
 
-          point2 = c2d.collisionPrimitive('POINT', 100,100)
-          line2 = c2d.collisionPrimitive('LINE', 100,100,100,100)
-          box2 = c2d.collisionPrimitive('BOX', 100,100,25,15)
-          circle2 = c2d.collisionPrimitive('CIRCLE', 100,100,10)
+          point2 = c2d.createCollisionPrimitive('POINT', 100,100)
+          line2 = c2d.createCollisionPrimitive('LINE', 100,100,100,100)
+          box2 = c2d.createCollisionPrimitive('BOX', 100,100,25,15)
+          circle2 = c2d.createCollisionPrimitive('CIRCLE', 100,100,10)
 
           static = [point1, line1, line11, box1, circle1]
           follower = [point2, line2, box2, circle2]
@@ -61,7 +61,7 @@
           ) {
             p.background(200, 80, 100)
           }
-          c2d.drawCollisionOverlays()
+          c2d.drawCollisionOverlays('DEFAULT')
         }
       }
 

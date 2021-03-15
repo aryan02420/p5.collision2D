@@ -1,10 +1,20 @@
 function Collision2D(p) {
 
   this.sketch = p || window
-  this.objects = []
+  this.layers = {}
+  this.layers.DEFAULT = []
+  this.layers.POINT = []
+  this.layers.LINE = []
+  this.layers.BOX = []
+  this.layers.CIRCLE = []
   let THIS = this
 
-  this.collisionPrimitive = function (type, ...args) {
+  this.addObjToLayer = function(obj, layer) {
+    this.layers[layer] = this.layers[layer] || [] 
+    this.layers[layer] = this.layers[layer].concat(obj)
+  }
+
+  this.createCollisionPrimitive = function (type, ...args) {
     switch (type.toString().toUpperCase()) {
       case 'POINT':
         return new THIS._collisionPoint(THIS, ...args)
@@ -66,24 +76,36 @@ function Collision2D(p) {
     }
   }
 
-  this.drawCollisionOverlays = function(){
+  this.drawCollisionOverlays = function(layer = 'DEFAULT'){
     THIS.sketch.push()
     THIS.sketch.blendMode(THIS.sketch.DIFFERENCE)
     THIS.sketch.noFill()
     THIS.sketch.stroke(100)
-    for (const obj of THIS.objects) {
+    layer = THIS.layers[layer] || []
+    for (const obj of layer) {
       obj.draw()
     }
     THIS.sketch.pop()
   }
 }
 
-Collision2D.prototype._collisionPoint = class {
+Collision2D.prototype._collisionPrimitive = class {
+
+  type = 'NONE'
+
+  constructor(parent) {
+    this.parent = parent
+    this.parent.layers.DEFAULT.push(this)
+  }
+
+}
+
+Collision2D.prototype._collisionPoint = class extends Collision2D.prototype._collisionPrimitive {
 
   type = 'POINT'
 
   constructor(parent, ...args) {
-    this.parent = parent
+    super(parent)
     if (args.length === 1 && args[0] instanceof p5.Vector) {
       this._position = args[0]
     } else if (args.length === 2) {
@@ -91,7 +113,7 @@ Collision2D.prototype._collisionPoint = class {
     } else {
       throw 'unknown signature in constructor collisonPoint'
     }
-    this.parent.objects.push(this)
+    this.parent.layers.POINT.push(this)
   }
 
   get center() {
@@ -121,12 +143,12 @@ Collision2D.prototype._collisionPoint = class {
 
 }
 
-Collision2D.prototype._collisionLine = class {
+Collision2D.prototype._collisionLine = class extends Collision2D.prototype._collisionPrimitive {
 
   type = 'LINE'
 
   constructor(parent, ...args) {
-    this.parent = parent
+    super(parent)
     if (args.length === 2 && args[0] instanceof p5.Vector && args[1] instanceof p5.Vector) {
       this._start = args[0]
       this._end = args[0]
@@ -136,7 +158,7 @@ Collision2D.prototype._collisionLine = class {
     } else {
       throw 'unknown signature in constructor collisonLine'
     }
-    this.parent.objects.push(this)
+    this.parent.layers.LINE.push(this)
   }
 
   get start() {
@@ -198,12 +220,12 @@ Collision2D.prototype._collisionLine = class {
 
 }
 
-Collision2D.prototype._collisionBox = class {
+Collision2D.prototype._collisionBox = class extends Collision2D.prototype._collisionPrimitive {
 
   type = 'BOX'
 
   constructor(parent, ...args) {
-    this.parent = parent
+    super(parent)
     if (args.length === 2 && args[0] instanceof p5.Vector && args[1] instanceof p5.Vector) {
       this._center = args[0]
       this._size = args[1]
@@ -213,7 +235,7 @@ Collision2D.prototype._collisionBox = class {
     } else {
       throw 'unknown signature in constructor collisonBox'
     }
-    this.parent.objects.push(this)
+    this.parent.layers.BOX.push(this)
   }
 
   get center() {
@@ -273,12 +295,12 @@ Collision2D.prototype._collisionBox = class {
 
 }
 
-Collision2D.prototype._collisionCircle = class {
+Collision2D.prototype._collisionCircle = class extends Collision2D.prototype._collisionPrimitive {
 
   type = 'CIRCLE'
 
   constructor(parent, ...args) {
-    this.parent = parent
+    super(parent)
     if (args.length === 2 && args[0] instanceof p5.Vector) {
       this._center = args[0]
       this._radius = args[1]
@@ -288,7 +310,7 @@ Collision2D.prototype._collisionCircle = class {
     } else {
       throw 'unknown signature in constructor collisonCircle'
     }
-    this.parent.objects.push(this)
+    this.parent.layers.CIRCLE.push(this)
   }
 
   get center() {
